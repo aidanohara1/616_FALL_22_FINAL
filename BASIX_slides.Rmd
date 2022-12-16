@@ -8,7 +8,7 @@ date: "2022-12-16"
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-summer 2003, policy marketed to 2 villages using BASIXs best sales force 148 farmers purchased the policy# Paying 74000 Rs (1800\$) for coverage of 600 total acres of land 15% commission on sales, negligible revenue far outweighed by staff time, developing customer relations
+Summer 2003, policy marketed to 2 villages using BASIXs best sales force 148 farmers purchased the policy# Paying 74000 Rs (1800\$) for coverage of 600 total acres of land 15% commission on sales, negligible revenue far outweighed by staff time, developing customer relations
 
 BASIX at large 60000 borrowers in 4000 villages in 30 districts
 
