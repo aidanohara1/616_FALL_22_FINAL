@@ -1,4 +1,3 @@
-
 # Summer 2003, policy marketed to 2 villages using BASIXs best sales force 148 
 #   farmers purchased the policy Paying 74000 Rs (1800$) for coverage of 600 
 #   total acres of land 15% commission on sales, negligible revenue far 
@@ -33,11 +32,12 @@ repaymentMonths <- runif(1,min = 11,max = 24) #just random for fun
 #   long term loan loss rate was ~ 2% typical repayment rates for micro finance 
 #   institutions ranged between 97% and 99% BASIX has a lower repayment rate 
 #   then typical. Because of drought
-# 
+#   BASIX had an on-time repayment rate of 93.3%? Do we need to consider this factor?
 
 costOfCapitol <- 0.09
 provisioning <- 0.02
 typicalLossRate <- 0.02
+ontimerepaymentRate <- 0.933
 repaymentRate <- runif(1,min = 0.97,max = 0.99)
 
 # BASIX also sells life insurance, first to borrowers, bundled with the loan, 
