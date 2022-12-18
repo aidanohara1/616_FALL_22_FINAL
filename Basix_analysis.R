@@ -184,7 +184,26 @@ groundNutSale <-sum(runif(groundNutYeild, min = 25, max = 35)) #cheeky
 # Farmers were concerned about transparency.
 # 
 # SEE EXHIBIT 5 for revised policy
-# 
+# Insurance Policy for Groundnut in 2014
+
+period_1_normal <- 75
+period_1_max <- 20
+period_1_normal_payment <- 15
+period_1_max_payment <- 3000
+
+period_2_normal <- 110
+period_2_max <- 10
+period_2_normal_payment <- 40
+period_2_max_payment <- 2000
+
+period_3_normal <- 75
+period_3_max <- 5
+period_3_normal_payment <- 10
+period_3_max_payment <- 1000
+
+
+
+
 # SEE EXHIBIT 6 for historical distribution of 
 #    rainfall for the periods covered by the policy.
 # 
@@ -215,3 +234,11 @@ groundNutSale <-sum(runif(groundNutYeild, min = 25, max = 35)) #cheeky
 ### RISKS, 
 ### COSTS, or 
 ### BENEFITS that hadn't been considered?
+
+# Exhibit 5
+RW_rainfall_index_1_28 <- 0.25
+RW_rainfall_index_29_56 <- 3
+RW_rainfall_index_57_160 <- 0.75
+
+
+
