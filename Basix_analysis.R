@@ -185,7 +185,6 @@ groundNutSale <-sum(runif(groundNutYeild, min = 25, max = 35)) #cheeky
 # 
 # SEE EXHIBIT 5 for revised policy
 # Insurance Policy for Groundnut in 2014
-
 period_1_normal <- 75
 period_1_max <- 20
 period_1_normal_payment <- 15
@@ -203,14 +202,22 @@ period_3_max_payment <- 1000
 
 # SEE EXHIBIT 6 for historical distribution of 
 #    rainfall for the periods covered by the policy.
-n <- 30
+n1 <- 35 
+n2 <- 35
+n3 <- 45
+
+set.seed(1234) 
 rlnorm2 <- function(n, mean, sd){
   rlnorm(n, log(mean*(1+sd^2/mean^2)^-.5), log(1+sd^2/mean^2)^.5)
 }
 
-phase_1_rainfall <- rlnorm2(n, mean = 115, sd = 56)
-phase_2_rainfall <- rlnorm2(n, mean = 191.1, sd = 82.5)
-phase_3_rainfall <- rlnorm2(n, mean = 209.7, sd = 97.7)
+phase_1_rainfall <- rlnorm2(n1, mean = 115, sd = 56)
+phase_2_rainfall <- rlnorm2(n2, mean = 191.1, sd = 82.5)
+phase_3_rainfall <- rlnorm2(n3, mean = 209.7, sd = 97.7)
+
+hist(phase_1_rainfall)
+hist(phase_2_rainfall)
+hist(phase_3_rainfall)
 
 # 
 # DECISION
