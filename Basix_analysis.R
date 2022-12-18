@@ -227,6 +227,11 @@ phase_3_rainfall <- rlnorm2(n, mean = 209.7, sd = 97.7)
 #      result in misunderstanding and default. 
 # 
 # Would the policy sell well?
+
+#    What is the cost/benefit of the policy for all the farmers of different 
+#           income levels?
+#   What were the outcomes for farmers in the 2003 policy?
+
 #   
 #   What was the best way to explain it to clients?
 #   
