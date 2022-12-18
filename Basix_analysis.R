@@ -201,11 +201,17 @@ period_3_max <- 5
 period_3_normal_payment <- 10
 period_3_max_payment <- 1000
 
-
-
-
 # SEE EXHIBIT 6 for historical distribution of 
 #    rainfall for the periods covered by the policy.
+n <- 30
+rlnorm2 <- function(n, mean, sd){
+  rlnorm(n, log(mean*(1+sd^2/mean^2)^-.5), log(1+sd^2/mean^2)^.5)
+}
+
+phase_1_rainfall <- rlnorm2(n, mean = 115, sd = 56)
+phase_2_rainfall <- rlnorm2(n, mean = 191.1, sd = 82.5)
+phase_3_rainfall <- rlnorm2(n, mean = 209.7, sd = 97.7)
+
 # 
 # DECISION
 # 
@@ -235,10 +241,6 @@ period_3_max_payment <- 1000
 ### COSTS, or 
 ### BENEFITS that hadn't been considered?
 
-# Exhibit 5
-RW_rainfall_index_1_28 <- 0.25
-RW_rainfall_index_29_56 <- 3
-RW_rainfall_index_57_160 <- 0.75
 
 
 
