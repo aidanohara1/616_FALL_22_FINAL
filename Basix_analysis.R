@@ -69,8 +69,9 @@ locallyAvailableLoanRate <- 0.1 # per MONTH
 
 householdSize <- 5
 landOwnership <- 3 #acres
-groundNutYeild <- 1000 #kilogram
-groundNutSale <-sum(runif(groundNutYeild, min = 25, max = 35)) #cheeky
+groundNutYeildPerAcre <- 333 #kilogram
+groundNutSale <-sum(runif(groundNutYeildPerAcre*landOwnership, 
+                          min = 25, max = 35)) #cheeky
 
 # farmAnimalCost <- 
 # foodCropsCost <- 
@@ -184,7 +185,7 @@ groundNutSale <-sum(runif(groundNutYeild, min = 25, max = 35)) #cheeky
 # Farmers were concerned about transparency.
 # 
 # SEE EXHIBIT 5 for revised policy
-# Insurance Policy for Groundnut in 2014
+# Insurance Policy for Groundnut in 2004
 period_1_normal <- 75
 period_1_max <- 20
 period_1_normal_payment <- 15
