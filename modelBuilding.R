@@ -131,7 +131,21 @@ farmers <- mutate(farmers,
                   netPolicyResult = totalPayout + premium)
 
 mean(farmers$netPolicyResult)
-hist(farmers$netPolicyResult)
+
+hist(farmers$netPolicyResult, 
+     breaks = 20, 
+     xlim=c(-125,5000),
+     main="2004 Policy Payout Simulation",
+     xlab="Total Payout",
+     col = "#009999")                                
+abline(v = mean(farmers$netPolicyResult),                     
+       col = "red",
+       lwd = 1)
+text(x = mean(farmers$netPolicyResult) * 10,                
+     y = mean(farmers$netPolicyResult) * 10,
+     paste("Mean =",round(mean(farmers$netPolicyResult), digit = 2)),
+     col = "red",
+     cex = 2)
 
 
 farmers2003 <- farmers[,1:5]
@@ -222,7 +236,22 @@ farmers2003 <- mutate(farmers2003, policyPayout = farmerPayouts,
                       netPolicyResult = cost + policyPayout)
 
 
-
+hist(farmers2003$netPolicyResult, 
+     breaks = 40, 
+     xlim= c(-125,5000),
+     ylim = c(0,0.0004),
+     main="2003 Policy Payout Simulation",
+     xlab="Total Payout",
+     col = "#00CC00",
+     freq = F)                                
+abline(v = mean(farmers2003$netPolicyResult),                     
+       col = "red",
+       lwd = 30)
+text(x = 1000,                
+     y = 0.0003,
+     paste("Mean =",round(mean(farmers2003$netPolicyResult), digit = 2)),
+     col = "red",
+     cex = 2)
 
 ##### BASIX model
 
