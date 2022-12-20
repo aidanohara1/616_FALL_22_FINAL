@@ -47,6 +47,16 @@ Using a designated rainfall station near clients: Policy would pay cash if measu
 A private insurance company was brought in with international connections. BASIX would act only as a sales agent, and earn commissions. Not be responsible for the payouts.
 
 **How should the rainfall index be designed?**
+Firstly, the insurance policy will define a notional target of a weighted rainfall over the period from May to October(which cover all the three phases). The relative weights is different for 3 phrases, and the formula for target value is: 
+(Total rainfall in weeks 1-4) * RW1 + (Total rainfall in weeks 5-8) * RW2 + (total rainfall
+in weeks 9-25) * RW3.
+
+Secondly, the real rainfall amount is weighted in the same way, and then we calculate the shortage between real weighted rainfall  and target weighted rainfall. The shortage are ranged in three level: 95%-75%, 75%-35%, and below 35%. For each level, they have a unique factor represent the payment per percentage shortfall. In 2003's policy they are varied for Farm owners with different farm size. While in 2004, they are constant for all insurance buyers.
+
+Finally, the final payment are the sum of the products of premium with each level's factor and the percentage of shortage fill in that level. 
+
+For example, if the premium is RS, index target is 653mm, payment per percentage shortfall of each three levels are
+30, 17,5 650. if rainfall were at 30% of the index, the policy would pay Rs. 30 * 20 + Rs. 175 * 40 + Rs. 650 * 5, a total amount of Rs. 10,850
 
 **What should the targets and payouts be?**
 
