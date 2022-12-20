@@ -134,6 +134,7 @@ farmers <- mutate(farmers,
 mean(farmers$netPolicyResult)
 hist(farmers$netPolicyResult)
 
+<<<<<<< HEAD
 farmers2003 <- farmers[,1:5]
 
 # 3 periods of rainfall
@@ -221,6 +222,8 @@ farmerPayouts <- mapply(payouts2003, policy = farmers2003$policy,
 farmers2003 <- mutate(farmers2003, policyPayout = farmerPayouts,
                       netPolicyResult = cost + policyPayout)
 
+=======
+>>>>>>> fa5981d4e0ff8bcb5574ca09efe7aabd36db88fd
 #concerns
 
 # we might expect rainfall to be low for the whole season, not just a couple 
