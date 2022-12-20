@@ -4,7 +4,6 @@ library(extraDistr)
 
 #Charecteristics of BASIX clients
 
-clientIncomeBreaks <- c(2000,3000)
 clientIncomeRangePer <- c(.21,.16,.60)
 
 clientIncome <- read.csv("incomeDistributions.csv")
@@ -222,11 +221,113 @@ farmerPayouts <- mapply(payouts2003, policy = farmers2003$policy,
 farmers2003 <- mutate(farmers2003, policyPayout = farmerPayouts,
                       netPolicyResult = cost + policyPayout)
 
-#concerns
-
-# we might expect rainfall to be low for the whole season, not just a couple 
-#   phases.  
-#  Inappropriately distributed land ownership
-#  
 
 
+
+##### BASIX model
+
+policiesSold <- seq(100,350,10)
+
+policyHolders <- function(m) {
+  n = m
+  random <- runif(n)
+  incomeCategory <- ifelse(random < .21, 1, 
+                           ifelse(random < (.21 + .16),2,3))
+  holders <- data.frame(income = incomeCategory,
+                        land = sapply(incomeCategory,landAcres))
+  policies <- sapply(holders$land, whichPolicy)
+  premiumCosts <- sapply(policies, whichPremium)
+  holders <- mutate(holders,
+                    policy = policies,
+                    cost_03 = -premiumCosts,
+                    cost_04 = -premium2004)
+}
+
+rainSims <- function(p) {
+  n = p
+  phase_0_rainfall <- rlnorm2(n, mean = 90, sd = 50)
+  phase_1_rainfall <- rlnorm2(n, mean = 115, sd = 56)
+  phase_2_rainfall <- rlnorm2(n, mean = 191.1, sd = 82.5)
+  phase_3_rainfall <- rlnorm2(n, mean = 209.7, sd = 97.7)
+  return(data.frame(rain0 = phase_0_rainfall,
+                    rain1 = phase_1_rainfall,
+                    rain2 = phase_2_rainfall,
+                    rain3 = phase_3_rainfall
+  ))
+}
+
+holdersGetRain <- function(rainVector, listOfHolders) {
+  rainVector <- as.numeric(rainVector)
+  holds <- mutate(listOfHolders, rain0 = rainVector[1],
+                    rain1 = rainVector[2], 
+                    rain2 = rainVector[3],
+                    rain3 = rainVector[4])
+
+  #2004
+  holds <- mutate(holds, diff1 = rain1 - rainIndex[1],
+                    diff2 = rain2 - rainIndex[2],
+                    diff3 = rain3 - rainIndex[3],
+                    payout1 = phasePayout(diff1,1),
+                    payout2 = phasePayout(diff2,2),
+                    payout3 = phasePayout(diff3,3))
+  payouts <- select(holds,payout1,payout2,payout3)
+  totalPayouts <- rowSums(payouts)
+  holds <- mutate(holds, 
+                    totalPayout_04 = totalPayouts,
+                    netPolicyResult_04 = totalPayout_04 + cost_04)
+  
+  #2003
+  
+  holds <- mutate(holds,
+                        period1 = rain0,
+                        period2 = rain1,
+                        period3 = rain2 + rain3,
+                        weighted1 = period1 * rainIndexWeights[1],
+                        weighted2 = period2 * rainIndexWeights[2],
+                        weighted3 = period3 * rainIndexWeights[3])
+  totalRainIndex <- select(holds,weighted1,weighted2,weighted3)
+  totalIndex <- rowSums(totalRainIndex)
+  holds <- mutate(holds, 
+                        totalRainIndexes_03 = totalIndex,
+                        targetDiff_03 = totalRainIndexes_03 - notionalTarget,
+                        perRain_03 = 1 + targetDiff_03/notionalTarget)
+  
+  payouts_03 <- mapply(payouts2003, policy = holds$policy,
+                          perRainfall = holds$perRain_03)
+  holds <- mutate(holds, totalPayout_03 = payouts_03,
+                        netPolicyResult_03 = cost_03 + totalPayout_03)
+  return(c(sum(holds$netPolicyResult_03),sum(holds$netPolicyResult_04)))
+}
+
+
+rainSimulation <- rainSims(1000)
+runRainSims <- function(listOfHolders) {
+  npv_03 <- NULL
+  npv_04 <- NULL
+  for (i in 1:dim(rainSimulation)[1]) {
+    npvList <- as.numeric(holdersGetRain(rainVector = rainSimulation[i,],
+                              listOfHolders = listOfHolders))
+    npv_03[i] <- npvList[1]
+    npv_04[i] <- npvList[2]
+  }
+  return(data.frame(npv_03,npv_04))
+}
+##7 minutes##
+mean_03 <- NULL
+mean_04 <- NULL
+policyNumBreaks <- for(i in 1:length(policiesSold)) {
+  simulatedNPVs <- runRainSims(policyHolders(policiesSold[i]))
+  mean_03[i] <- mean(simulatedNPVs$npv_03)
+  mean_04[i] <- mean(simulatedNPVs$npv_04)
+}
+
+
+theBigModel <- data.frame(policiesSold,
+                          -mean_03,
+                          -mean_04)
+
+
+# 03 means are profitable for BASIX because of higher premiums and lower
+#   likelihood of larger payout.
+# 04 means are profitable for the farmers because of the widespread effect of 
+#  falling below a max payout trigger.
