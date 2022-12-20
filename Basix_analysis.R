@@ -256,4 +256,17 @@ hist(phase_3_rainfall)
 
 
 
-
+hist(farmers$netPolicyResult, 
+     breaks = 20, 
+     xlim=c(-125,5000),
+     main="2003 Policy Payout Simulation",
+     xlab="Total Payout",
+     col = "#009999")                                
+abline(v = mean(farmers$netPolicyResult),                     
+       col = "red",
+       lwd = 1)
+text(x = mean(farmers$netPolicyResult) * 10,                
+     y = mean(farmers$netPolicyResult) * 10,
+     paste("Mean =",round(mean(farmers$netPolicyResult), digit = 2)),
+     col = "red",
+     cex = 2)
