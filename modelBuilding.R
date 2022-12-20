@@ -120,3 +120,11 @@ farmers <- mutate(farmers,
 mean(farmers$netPolicyResult)
 hist(farmers$netPolicyResult)
 
+#concerns
+
+# we might expect rainfall to be low for the whole season, not just a couple 
+#   phases.  
+#  Inappropriately distributed land ownership
+#  
+
+
