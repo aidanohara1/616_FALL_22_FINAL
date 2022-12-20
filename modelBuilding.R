@@ -39,7 +39,7 @@ incomeCategory <- ifelse(random < .21, 1,
 # each farmer has some amount of land, corresponding to their income category
 acreBreaks <- as.numeric(clientHousehold2[,11])
 firstInt <- (acreBreaks[2] - acreBreaks[1])/2
-secondInt <- (acreBreaks[3] - acreBreaks[2])/2
+secondInt <- (acreBreaks[3] - acreBreaks[2] + 1)/2 #+1 for better distr.
 
 
 # landAcres <- ifelse(incomeCategory == 1, 
